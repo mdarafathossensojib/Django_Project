@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def user_dashboard(request):
-    return render(request, 'user_dashboard.html')
+    return render(request, 'dashboard/user_dashboard.html')
 
 def manager_dashboard(request):
-    return render(request, 'manager_dashboard.html')
+    return render(request, 'dashboard/manager_dashboard.html')
