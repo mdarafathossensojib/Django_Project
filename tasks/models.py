@@ -21,9 +21,8 @@ class Task(models.Model):
     description = models.TextField()
     due_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
-    is_complete = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -40,7 +39,7 @@ class TaskDetail(models.Model):
     )
     task = models.OneToOneField(Task, on_delete=models.CASCADE, related_name='details')
     assigned_to = models.CharField(max_length=100)
-    priority = models.CharField(max_length=1, choices=PRIORITY_OPTIONS, default=MEDIUM)
+    priority = models.CharField(max_length=1, choices=PRIORITY_OPTIONS, default=LOW)
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
