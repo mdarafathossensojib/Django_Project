@@ -10,12 +10,16 @@
 <body>
     <div class="w-1/2 mx-auto mt-10 mb-5">
         {% if messages %}
-            <p style="color:green;">{{ messages }}</p>
+            {% for message in messages %}
+                <p style="color:green;">{{ message }}</p>
+            {% endfor %}
         {% endif %}
+
         <form method="POST" action="">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="bg-rose-600 text-white py-3 px-10 rounded-sm mt-5">Create Task</button>
+            {{ task_form.as_p }}
+            {{ task_detail_form.as_p }}
+            <button type="submit" class="bg-rose-600 text-white py-3 px-10 rounded-sm mt-5">Submit</button>
         </form>
     </div>
 </body>

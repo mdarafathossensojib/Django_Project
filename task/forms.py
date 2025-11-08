@@ -1,5 +1,5 @@
 from django import forms
-from task.models import Task
+from task.models import Task, TaskDetail
 
 # Djansgo ModelForm for Task model
 class TaskModelForm(forms.ModelForm):
@@ -12,3 +12,9 @@ class TaskModelForm(forms.ModelForm):
             'due_date': forms.DateInput(attrs={'type': 'date'}),
             'assigned_to': forms.CheckboxSelectMultiple(),
         }
+
+
+class TaskDetailModelForm(forms.ModelForm):
+    class Meta:
+        model = TaskDetail
+        fields = ['priority', 'notes']
