@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from task.forms import  TaskModelForm
-from task.models import Employee
+from task.models import *
 
 # Create your views here.
 
@@ -28,3 +28,8 @@ def create_task(request):
         
     context = {'form': form}
     return render(request, 'task_form.html', context)
+
+def view_task(request):
+    tasks = Task.objects.filter(status='PENDING')
+
+    return render(request, 'show_task.html', {'tasks' : tasks})
