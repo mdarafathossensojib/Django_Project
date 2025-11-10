@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from task.forms import  TaskModelForm, TaskDetailModelForm
-from task.models import *
+from task.models import Task, TaskDetail, Project, Employee
 from django.db.models import Q, Count
 from django.contrib import messages
 
@@ -30,10 +30,6 @@ def manager_dashboard(request):
     context = {
         'tasks': tasks,
         'counts': counts,
-        # 'total_task': total_task,
-        # 'completed_task': completed_task,
-        # 'pending_task': pending_task,
-        # 'in_progress_task': in_progress_task,
     }
 
     return render(request, 'dashboard/manager-dashboard.html', context)
