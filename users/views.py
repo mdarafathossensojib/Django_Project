@@ -1,5 +1,36 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from users.forms import RegistrationForm, CustomRegistrationForm
+from django.contrib.auth import authenticate, login, logout
 
 def sign_up(request):
-    return render(request, 'registration/registration.html')
+    form = CustomRegistrationForm()
+    if request.method == 'POST':
+        form = CustomRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+            print("Form is not valid")
+
+
+    return render(request, 'registration/registration.html', {'form': form})
+
+def sign_in(request):  
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home') 
+        else:
+            print("Invalid credentials")
+
+    return render(request, 'registration/login.html')
+
+def sign_out(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('sign-in')
