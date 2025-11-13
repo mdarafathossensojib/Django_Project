@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from debug_toolbar.toolbar import debug_toolbar_urls
+from core.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
     path('task/', include('task.urls')),
-    path('', include('users.urls'),),
+    path('user/', include('users.urls'),),
 ] + debug_toolbar_urls()
