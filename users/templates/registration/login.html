@@ -1,22 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogIn Page</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 <body>
-    <h1>Welcome to registration Authentication page</h1>  
+    <h1>Welcome to LogIn page</h1>  
 
+    <h3>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    </h3>
     
-    
-    <form action="" method="POST">
+    <form class="w-full mx-auto bg-gray-300 border rounded" action="" method="POST">
         {% csrf_token %}
 
-        <input type="text" name="username" id="" placeholder="Enter Your Username">
-        <input type="password" name="password" id="" placeholder="Enter Your Password">
+        {{form}}
 
-        <button type="submit">Sign In</button>
+        <button class="bg-blue-500 text-white rounded-md font-bold px-3 py-1" type="submit">Sign In</button>
     </form>
     
 </body>
