@@ -1,0 +1,22 @@
+{% extends "admin/dashboard.html" %}
+
+{% block content %}
+    <div class="w-1/2 mx-auto, p-5">
+        <ul>
+            {% if messages %}
+                {% for message in messages %}
+                    <li class="bg-green-500 text-white px-2 py-3">{{message}}</li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form}}
+
+            <button class="px-3 py-1 bg-blue-500 text-white rounded-md" type="submit">Assign Role</button>
+        </form>
+    </div>
+
+{% endblock content %}
+
