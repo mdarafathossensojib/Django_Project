@@ -15,10 +15,11 @@
             {% endfor %}
         {% endif %}
 
-        <form method="POST" action="">
+        <form method="POST" action="", enctype="multipart/form-data">
             {% csrf_token %}
             {{ task_form.as_p }}
             {{ task_detail_form.as_p }}
+
             <button type="submit" class="bg-rose-600 text-white py-3 px-10 rounded-sm mt-5">Submit</button>
         </form>
     </div>

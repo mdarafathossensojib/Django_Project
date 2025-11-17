@@ -17,4 +17,4 @@ class TaskModelForm(forms.ModelForm):
 class TaskDetailModelForm(forms.ModelForm):
     class Meta:
         model = TaskDetail
-        fields = ['priority', 'notes']
+        fields = ['priority', 'notes', 'asset']

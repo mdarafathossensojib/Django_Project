@@ -4,7 +4,7 @@
 {% load static %}
 {% block tasks %}
 <!-- Task Table  -->
-<div class="bg-white rounded-xl shadow-sm">
+<div class="bg-white rounded-xl shadow-sm my-8">
     <div
       class="grid grid-cols-4 p-4 border-b border-gray-100 text-sm text-gray-500"
     >
@@ -25,7 +25,7 @@
         <div class="grid grid-cols-4 gap-4 p-4 items-center">
           <div class="flex items-center gap-2">
             <div class="w-2 h-2 rounded-full bg-green-500"></div>
-            <span>{{task.title}}</span>
+            <a href="{% url 'task-details' task.id %}">{{task.title}}</a>
             <a href="{% url 'update-task' task.id %}" class="bg-green-500 text-white py-1 px-2">Edit</a>
             <form action="{% url 'delete-task' task.id %}" method="POST" style="display:inline;">
               {% csrf_token %}
@@ -43,7 +43,7 @@
               <div
               class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white"
             >
-              {{emp.name | slice:":2" | upper}}
+              {{emp.first_name | slice:":2" | upper}}
             </div>
             {% endfor %}
           </div>

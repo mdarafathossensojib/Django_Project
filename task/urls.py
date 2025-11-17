@@ -1,5 +1,5 @@
 from django.urls import path
-from task.views import manager_dashboard, employee_dashboard, create_task, update_task, delete_task, view_task
+from task.views import manager_dashboard, employee_dashboard, create_task, update_task, delete_task, view_task, task_details, dashboard
 
 urlpatterns = [
     path('manager-dashboard/', manager_dashboard, name='manager-dashboard'),  
@@ -8,4 +8,6 @@ urlpatterns = [
     path('update-task/<int:id>/', update_task, name='update-task'),
     path('delete-task/<int:id>/', delete_task, name='delete-task'),
     path('view-task/', view_task, name='view-task'),
+    path('details/<int:task_id>/', task_details, name='task-details'),
+    path('dashboard/', dashboard, name='dashboard'),
 ]
