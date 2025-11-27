@@ -15,7 +15,7 @@
             {% endfor %}
         {% endif %}
 
-        <form method="POST" action="", enctype="multipart/form-data">
+        <form method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
             {{ task_form.as_p }}
             {{ task_detail_form.as_p }}
