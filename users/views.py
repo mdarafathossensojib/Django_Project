@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User, Group
-from users.forms import RegistrationForm, CustomRegistrationForm, AssignRoleForm, CreateGroupForm
+from users.forms import RegistrationForm, CustomRegistrationForm, AssignRoleForm, CreateGroupForm, CustomPasswordChangeForm, CustomPasswordResetForm, CustomPasswordConfirmForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from users.forms import LoginForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Prefetch
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.views.generic import TemplateView
+from django.urls import reverse_lazy
 
 
 def is_admin(user):
@@ -50,6 +51,10 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         next_url = self.request.GET.get('next')
         return next_url if next_url else super().get_success_url()
+
+class ChangePassword(PasswordChangeView):
+    template_name = 'accounts/change_password.html'
+    form_class = CustomPasswordChangeForm
 
 @login_required
 def sign_out(request):
@@ -132,3 +137,32 @@ class ProfileView(TemplateView):
         context['last_login'] = user.last_login
 
         return context
+
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
+    template_name = 'registration/reset_password.html'
+    success_url = reverse_lazy('sign-in')
+    html_email_template_name = 'registration/reset_email.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['protocol'] = 'https' if self.request.is_secure() else 'http'
+        context['domain'] = self.request.get_host()
+        return context
+ 
+    def form_valid(self, form):
+        messages.success(self.request, 'A Reset Email Sent. Please check your Email.')
+        return super().form_valid(form)
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomPasswordConfirmForm
+    template_name = 'registration/reset_password.html'
+    success_url = reverse_lazy('sign-in')
+ 
+    def form_valid(self, form):
+        messages.success(self.request, 'Password Reset successfully')
+        return super().form_valid(form)
+    
+
+
