@@ -129,11 +129,11 @@ def task_details(request, task_id):
 
 @login_required
 def dashboard(request):
-    if is_manager(request.user):
+    if is_admin(request.user):
+        return redirect('admin-dashboard')
+    elif is_manager(request.user):
         return redirect('manager-dashboard')
     elif is_employee(request.user):
         return redirect('user-dashboard')
-    elif is_admin(request.user):
-        return redirect('admin-dashboard')
     
     return redirect('no-permission')
