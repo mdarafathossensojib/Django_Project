@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save, m2m_changed, post_delete
 from django.dispatch import receiver
 from django.core.mail import send_mail
-from task.models import Task
+from task.models import Task, TaskDetail
 
 
 @receiver(m2m_changed, sender=Task.assigned_to.through)
@@ -20,6 +20,10 @@ def notify_employees_on_assignment(sender, instance, action, **kwargs):
             )
 
 @receiver(post_delete, sender=Task)
-def delete_aaociate_details(sender, instance, **kwargs):
-    if instance.details:
-        instance.details.delete()
+def delete_associate_details(sender, instance, **kwargs):
+    try:
+        details = instance.details     
+        if details.id:                
+            details.delete()
+    except TaskDetail.DoesNotExist:
+        pass   
